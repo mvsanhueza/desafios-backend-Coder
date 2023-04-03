@@ -1,38 +1,41 @@
-class ProductManager{
-    constructor(){
+class ProductManager {
+    constructor() {
         this.products = [];
     }
 
-    addProduct(product){
-        if(this.products.find(p=>p.code == product.code)){
+    addProduct(product) {
+        const keysRequired = ["title", "description", "price", "thumbnail", "code", "stock", "ID"];
+        const keysProduct = Object.keys(product);
+        if (keysRequired.some(k=> !keysProduct.includes(k))) {
+            console.log("Producto inválido");
+            return;
+        }
+        else if (this.products.find(p => p.code == product.code)) {
             console.log("Producto existente");
             return;
-        }        
-        else if(Object.values(product).find(k=>k == null)){
-            console.log("Producto incompleto");
-            return;
-        }                
+        }
+
         this.products.push(product);
     }
 
-    getProducts(){
+    getProducts() {
         return this.products;
     }
 
-    getProductById(id){
-        let product = this.products.find(p=>p.ID == id);
-        if(product){
+    getProductById(id) {
+        let product = this.products.find(p => p.ID == id);
+        if (product) {
             return product;
         }
-        else{
+        else {
             console.log("Not Found");
             return;
         }
     }
 }
 
-class Product{
-    constructor(title, description, price, thumbnail, code, stock){
+class Product {
+    constructor(title, description, price, thumbnail, code, stock) {
         this.title = title;
         this.description = description;
         this.price = price;
@@ -42,11 +45,11 @@ class Product{
         this.ID = Product.incrementID();
     }
 
-    static incrementID(){
-        if(this.idIncrement){
+    static incrementID() {
+        if (this.idIncrement) {
             this.idIncrement++;
         }
-        else{
+        else {
             this.idIncrement = 1;
         }
 
@@ -56,11 +59,12 @@ class Product{
 
 //TESTING
 const productManager = new ProductManager();
-console.log(productManager.getProducts()); 
+console.log(productManager.getProducts());
 productManager.addProduct(new Product("producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25));
 console.log(productManager.getProducts());
 productManager.addProduct(new Product("producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25));
 productManager.addProduct(new Product("producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc126", 25));
+productManager.addProduct({ title: "producto errado", descripcion: "Producto Errado", code: "abc492" })
 console.log(productManager.getProducts());
 
 console.log(productManager.getProductById(1));
