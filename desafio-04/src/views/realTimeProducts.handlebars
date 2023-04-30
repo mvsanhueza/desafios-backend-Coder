@@ -1,0 +1,43 @@
+<div class="containerForm">
+    <form class="w-25">
+        <div class="mb-3">
+            <label for="title" class="form-label">Título</label>
+            <input type="text" class="form-control" id="title" />
+        </div>
+        <div class="mb-3">
+            <label for="code" class="form-label">Código</label>
+            <input type="text" class="form-control" id="code" />
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Precio</label>
+            <input type="text" class="form-control" id="price" />
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Categoría</label>
+            <input type="text" class="form-control" id="category" />
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Descripción</label>
+            <textarea class="form-control" id="description" style="height: 100px;"></textarea>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="status" checked />
+            <label class="form-check-label" for="status">Estado</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Crear Producto</button>
+    </form>
+    <div class="contenedorProduct">
+        {{#each products}}
+        <div>
+            <p class="productTitle"><strong>{{this.title}}</strong></p>
+            <p><strong>Descripción: </strong>{{this.description}}</p>
+            <p><strong>Code: </strong>{{this.code}}</p>
+            <p><strong>Precio: </strong>{{this.price}}</p>
+            <p><strong>Estado: </strong>{{this.status}}</p>
+            <p><strong>Stock: </strong>{{this.stock}}</p>
+            <p><strong>Categoría: </strong>{{this.category}}</p>
+        </div>
+        {{/each}}
+    </div>
+</div>
