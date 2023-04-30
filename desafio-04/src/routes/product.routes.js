@@ -20,6 +20,15 @@ productRouter.get('/', async (req, res)=>{
 
 productRouter.get('/realtimeproducts', async (req, res)=>{
     const products = await productManager.getProducts();
+    req.io.on('connection2', (socket)=>{
+        console.log('Conectado desde router');
+        socket.on('addProduct', (product)=>{
+            console.log(product);
+        })
+    })
+    // req.io.sockets.on('addProduct', (product)=>{
+    //     console.log(product);
+    // })
     res.render('realTimeProducts', {products});
 })
 
