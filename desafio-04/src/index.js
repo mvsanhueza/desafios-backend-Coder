@@ -5,6 +5,7 @@ import { engine } from 'express-handlebars';
 import {Server} from 'socket.io';
 import * as path from 'path';
 import { __dirname } from './path.js';
+import ProductManager from './productManager.js';
 
 
 //Configuración de express:
@@ -19,21 +20,25 @@ const server = app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
+const productManager = new ProductManager('./products.json');
+
 //IO SERVER:
 const io = new Server(server);
-
-io.on('connection', (socket)=>{
-    console.log('Cliente conectado');
-    socket.on('mensaje',(data)=>{
-        console.log(data);
+io.on('connection',(socket)=>{
+    console.log('Conectado al socket');
+    socket.on('addProduct', async (product)=>{
+        const mensaje = await productManager.addProduct(product);
+        console.log(mensaje);
+        const products = await productManager.getProducts();            
+        socket.emit('actProducts', products);
     })
-    // socket.on('addProduct', (data)=>{
-    //     console.log(data);
-    // })
-});
-
-
-
+    socket.on('deleteProduct', async (id)=>{
+        const mensaje = await productManager.deleteProduct(id);
+        console.log(mensaje);
+        const products = await productManager.getProducts();            
+        socket.emit('actProducts', products);
+    })
+})
 //Middlewares:
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -41,6 +46,8 @@ app.use((req,res,next)=>{ //Realizamos el io accesible a los routes:
     req.io = io;
     next();
 })
+
+
 
 //Routes:
 app.use('/api/products', productRouter);

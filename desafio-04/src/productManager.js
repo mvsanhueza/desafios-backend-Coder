@@ -8,7 +8,6 @@ class ProductManager {
     async addProduct(product) {
         const keysRequired = ["title", "description", "code", "price", "status", "stock", "category"];
         const keysProduct = Object.keys(product);
-
         //se lee el archivo txt con los datos:
         const productsJSON = await fs.readFile(this.path, 'utf-8');
         const products = JSON.parse(productsJSON);

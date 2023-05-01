@@ -21,6 +21,10 @@
             <input type="number" class="form-control" id="stock" name="stock" />
         </div>
         <div class="mb-3">
+            <label for="thumbnails" class="form-label">Thumbnails</label>
+            <input type="text" class="form-control" id="thumbnails" name="thumbnails" />
+        </div>
+        <div class="mb-3">
             <label for="description" class="form-label">Descripción</label>
             <textarea class="form-control" id="description" style="height: 100px;" name="description"></textarea>
         </div>
@@ -31,9 +35,10 @@
 
         <button type="submit" class="btn btn-primary" id="btn_AddProduct">Crear Producto</button>
     </form>
-    <div class="contenedorProduct">
+    <div class="contenedorProduct" id="productsContainer">
         {{#each products}}
-        <div>
+        <div id={{this.id}}>
+            <button onclick="borrarProducto_Click({{this.id}})" class="deleteProduct_button"><i class="bi bi-trash"></i></button>
             <p class="productTitle"><strong>{{this.title}}</strong></p>
             <p><strong>Descripción: </strong>{{this.description}}</p>
             <p><strong>Code: </strong>{{this.code}}</p>
