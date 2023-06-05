@@ -14,7 +14,7 @@ productRouter.get('/', async (req, res)=>{
         res.send(products.slice(0, intLimit));
         return;
     }
-
+    console.log({products});
     res.render('home', {products});
 })
 

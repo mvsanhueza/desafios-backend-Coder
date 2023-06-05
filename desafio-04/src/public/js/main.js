@@ -3,6 +3,8 @@ const socket = io();
 //Se busca el formulario y se le agrega el eventlistener:
 const formProduct = document.getElementById('form_Product');
 const divProductContainer = document.getElementById('productsContainer')
+
+if(formProduct){
 //Se define el EventListener:   
 formProduct.addEventListener('submit', (e)=>{
     e.preventDefault();
@@ -25,6 +27,8 @@ formProduct.addEventListener('submit', (e)=>{
     socket.emit('addProduct', product);
     formProduct.reset();
 })
+}
+
 
 socket.on('actProducts', (products)=>{
     divProductContainer.innerHTML = '';
