@@ -3,10 +3,11 @@ import express from 'express';
 import productRouter from './routes/product.routes.js';
 import cartRouter from './routes/cart.routes.js';
 import sessionRouter from './routes/session.routes.js'
+import viewsRouter from './routes/views.routes.js';
 import { engine } from 'express-handlebars';
 import {Server} from 'socket.io';
 import * as path from 'path';
-import { __dirname } from './path.js';
+import { __dirname } from './utils.js';
 import ProductManager from './productManager.js';
 import mongoose from 'mongoose';
 import mongoStore from 'connect-mongo';
@@ -60,7 +61,7 @@ app.use(session({
     }),
     secret: process.env.SESSION_SECRET,
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: false
 }));
 
 //Mongo DB:
@@ -72,6 +73,6 @@ app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/sessions', sessionRouter);
 app.use('/', express.static(path.resolve(__dirname, './public')));
-app.use('/api/', productRouter);
+app.use('/api/', viewsRouter);
 
 

@@ -58,7 +58,9 @@ productRouter.get('/', async (req, res)=>{
     catch{
     }
 
-    res.render('home', result);
+    console.log({session: req.session, result: result});
+
+    res.render('home', {session: req.session, result: result});
 })
 
 productRouter.get('/realtimeproducts', async (req, res)=>{

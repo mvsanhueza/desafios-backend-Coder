@@ -1,6 +1,6 @@
 export const testLogin = (req, res, next) =>{
     const {email, password} = req.body;
-    console.log(email);
+    console.log(email, password);
     try{
         if(email === 'adminCoder@coder.com' && password === 'adminCod3r123'){
             req.session.login = true;
@@ -29,4 +29,8 @@ export const getSession = (req, res, next) =>{
     else{
         res.status(401).json({message: "Sesión no activa"});
     }
+}
+
+export const signup = (req,res, next) =>{
+    
 }
