@@ -2,6 +2,7 @@ import { Router } from "express";
 import userModel from "../models/User.js";
 import { hashData, compareData } from "../utils.js";
 import passport from "passport";
+import { logout, signup } from "../controllers/session.controller.js";
 
 const routerSession = Router();
 
@@ -25,31 +26,9 @@ const routerSession = Router();
 // login con passport:
 routerSession.post('/login', passport.authenticate('login', { failureRedirect: '/api/errorLogin', successRedirect: '/api/products' }));
 
-routerSession.post('/signup', async (req, res) => {
-    const { email, password } = req.body;
+routerSession.post('/signup', signup);
 
-    const user = await userModel.findOne({ email });
-    if (user) {
-        return res.redirect('/api/errorSignup')
-    }
-    const hashPassword = await hashData(password);
-    const newUser = { ...req.body, password: hashPassword }
-    await userModel.create(newUser);
-    res.redirect('/api')
-})
-
-routerSession.get('/logout', (req, res) => {
-    req.session.destroy(error => {
-        if (error) {
-            console.log(error);
-            res.send(error);
-        }
-        else {
-            res.redirect('/api')
-        }
-    });
-
-})
+routerSession.get('/logout', logout());
 
 //github:
 routerSession.get('/githubSignin', passport.authenticate('githubLogin', { scope: ['user:email'] }));
