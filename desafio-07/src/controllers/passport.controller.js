@@ -1,11 +1,11 @@
-import 'dotenv/config'
+import config from '../config/config.js'
 import passport from 'passport';
-import { findUserById, findUser, createUser } from '../services/users.service.js';
+import usersService from '../services/users.service.js';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GithubStrategy } from 'passport-github2';
-import { Strategy as FacebookStrategy } from 'passport-facebook';
+//import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { compareData } from '../utils.js';
+import { compareData } from '../utils/utils.js';
 
 //Serializadores:
 passport.serializeUser((user, done) => {
@@ -14,7 +14,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
     try {
-        const user = await findUserById(id)
+        const user = await usersService.findUserById(id)
         done(null, user);
     }
     catch (error) {
@@ -30,14 +30,26 @@ passport.use('login', new LocalStrategy(
     },
     async (req, email, password, done) => {
         try {
-            const user = await findUser({ email, externalLogin: false });
+
+            //Se analiza si es superAdmin:
+            const user = await usersService.findUser({ email, externalLogin: false });
             if (!user) {
                 return done(null, false);
             }
+
+            const isSuperAdminPasswordValid = await compareData(password, config.admin_password);
+            //Se analiza si es superAdmin:
+            if(isSuperAdminPasswordValid && email === config.admin_email){
+                user.isAdmin = true;
+            }
+            else {
+                user.isAdmin = false;
+            }
+
             const isPasswordValid = await compareData(password, user.password);
             if (!isPasswordValid) {
                 return done(null, false);
-            }
+            }           
 
             done(null, user);
         }
@@ -58,7 +70,7 @@ passport.use('githubLogin', new GithubStrategy(
         const { name, email } = profile._json;
 
         try {
-            const userDB = await findUser({ externalLogin: true, githubId: profile.id });
+            const userDB = await usersService.findUser({ externalLogin: true, githubId: profile.id });
             if (userDB) {
                 return done(null, userDB);
             }
@@ -72,7 +84,7 @@ passport.use('githubLogin', new GithubStrategy(
                 password: '123456',
             }
 
-            const newUser =  await createUser(user);
+            const newUser =  await usersService.createUser(user);
             done(null, newUser);
         }
         catch (error) {
@@ -127,7 +139,7 @@ passport.use('googleLogin', new GoogleStrategy(
         const { name, email } = profile._json;
         console.log(profile);
         try {
-            const userDB = await findUser({ externalLogin: true, googleId: profile.id });
+            const userDB = await usersService.findUser({ externalLogin: true, googleId: profile.id });
             if (userDB) {
                 return done(null, userDB);
             }
@@ -141,7 +153,7 @@ passport.use('googleLogin', new GoogleStrategy(
                 password: '123456',
             }
 
-            const newUser = await createUser(user);
+            const newUser = await usersService.createUser(user);
             done(null, newUser);
         }
         catch (error) {

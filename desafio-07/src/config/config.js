@@ -12,4 +12,6 @@ export default {
     facebook_client_secret: process.env.FACEBOOK_CLIENT_SECRET,
     google_client_id: process.env.GOOGLE_CLIENT_ID,
     google_client_secret: process.env.GOOGLE_CLIENT_SECRET,
+    admin_email: process.env.ADMIN_EMAIL,
+    admin_password: process.env.ADMIN_PASSWORD,
 }

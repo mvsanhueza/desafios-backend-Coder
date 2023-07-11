@@ -1,6 +1,4 @@
 import { Router } from "express";
-import userModel from "../models/User.js";
-import { hashData, compareData } from "../utils.js";
 import passport from "passport";
 import { logout, signup } from "../controllers/session.controller.js";
 
@@ -28,7 +26,7 @@ routerSession.post('/login', passport.authenticate('login', { failureRedirect: '
 
 routerSession.post('/signup', signup);
 
-routerSession.get('/logout', logout());
+routerSession.get('/logout', logout);
 
 //github:
 routerSession.get('/githubSignin', passport.authenticate('githubLogin', { scope: ['user:email'] }));

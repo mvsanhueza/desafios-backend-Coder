@@ -1,13 +1,13 @@
-import { findUser, createUser } from "../services/users.service";
+import usersService from "../services/users.service.js";
 
 export const signup = async (req,res) =>{
     const { email, password } = req.body;
 
-    const user = await userModel.findUser({ email });
+    const user = await usersService.findUser({ email });
     if (user) {
         return res.redirect('/api/errorSignup')
     }
-    await createUser(req.body);
+    await usersService.createUser(req.body);
     res.redirect('/api')
 }
 

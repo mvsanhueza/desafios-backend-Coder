@@ -6,8 +6,7 @@ import sessionRouter from './routes/session.routes.js'
 import viewsRouter from './routes/views.routes.js';
 import { engine } from 'express-handlebars';
 import * as path from 'path';
-import { __dirname } from './utils.js';
-import mongoose from 'mongoose';
+import { __dirname } from './utils/utils.js';
 import mongoStore from 'connect-mongo';
 import session from 'express-session';
 import './controllers/passport.controller.js'
@@ -23,17 +22,17 @@ app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', path.resolve(__dirname, './views'));
 
-const server = app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
 
 //Middlewares:
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use((req,res,next)=>{ //Realizamos el io accesible a los routes:
-    req.io = io;
-    next();
-})
+// app.use((req,res,next)=>{ //Realizamos el io accesible a los routes:
+//     req.io = io;
+//     next();
+// })
 
 //sessiones:
 app.use(session({
