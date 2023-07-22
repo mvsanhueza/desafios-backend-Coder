@@ -14,6 +14,7 @@ import session from 'express-session';
 import './controllers/passport.controller.js'
 import passport from 'passport';
 import './config/dbConfig.js';
+import errorHandler from './middlewares/errors/index.js'
 
 
 //Configuración de express:
@@ -31,6 +32,7 @@ app.set('views', path.resolve(__dirname, './views'));
 //Middlewares:
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 //sessiones:
 app.use(session({
     store: mongoStore.create({
@@ -42,20 +44,6 @@ app.use(session({
     resave: true,
     saveUninitialized: false,
 }));
-
-//Servidor
-const httpServer = app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
-
-//Server io:
-const io = new Server(httpServer, { cors: { origin: '*' } });
-app.use((req, res, next) => {
-    //Uso de socket en rutas:
-    req.io = io;
-    return next();
-})
-
 
 
 //Passport:
@@ -71,3 +59,19 @@ app.use('/api/', viewsRouter);
 
 //Ruta public:
 app.use('/', express.static(path.resolve(__dirname, './public')));
+
+//Errores, siempre al final según expressjs.com
+app.use(errorHandler);
+
+//Servidor
+const httpServer = app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+//Server io:
+const io = new Server(httpServer, { cors: { origin: '*' } });
+app.use((req, res, next) => {
+    //Uso de socket en rutas:
+    req.io = io;
+    return next();
+})

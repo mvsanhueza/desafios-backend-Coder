@@ -1,3 +1,6 @@
+import CustomError from "../services/errors/CustomError.js";
+import ENUM_Errors from "../services/errors/enums.js";
+import { generateProductErrorInfo } from "../services/errors/info.js";
 import productsService from "../services/products.service.js";
 import {fakerES} from '@faker-js/faker'
 
@@ -52,8 +55,17 @@ export const getProductById = async (req, res) => {
 }
 
 export const createProduct = async (req, res) => {
+    
+    //Se verifica que tengas los elementos requeridos:
+    if(!req.body.title || !req.body.description || !req.body.code || !req.body.price || !req.body.category || !req.body.stock){
+        CustomError.createError({
+            name: "Product creation error",
+            cause: generateProductErrorInfo(req.body),
+            message: "Error al crear el producto",
+            code: ENUM_Errors.INVALID_TYPES_ERROR
+        })
+    }
     const newProduct = await productsService.createProduct(req.body);
-
     // const mensaje = await productManager.addProduct({title, description,code,price,status,stock,category,thumbnails});
     if (newProduct) {
         res.send("Objeto agregado");
