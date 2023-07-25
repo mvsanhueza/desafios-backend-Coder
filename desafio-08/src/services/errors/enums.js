@@ -1,7 +1,6 @@
 const ENUM_Errors = {
-    ROUTING_ERROR: 1,
-    INVALID_TYPES_ERROR: 2,
-    DATABASE_ERROR:3
+    INVALID_TYPES_ERROR: 1,
+    DATABASE_ERROR: 2
 }
 
 export default ENUM_Errors;

@@ -2,7 +2,7 @@ import CustomError from "../services/errors/CustomError.js";
 import ENUM_Errors from "../services/errors/enums.js";
 import { generateProductErrorInfo } from "../services/errors/info.js";
 import productsService from "../services/products.service.js";
-import {fakerES} from '@faker-js/faker'
+import { fakerES } from '@faker-js/faker'
 
 
 export const getProducts = async (req, res) => {
@@ -54,32 +54,51 @@ export const getProductById = async (req, res) => {
     }
 }
 
-export const createProduct = async (req, res) => {
-    
-    //Se verifica que tengas los elementos requeridos:
-    if(!req.body.title || !req.body.description || !req.body.code || !req.body.price || !req.body.category || !req.body.stock){
-        CustomError.createError({
-            name: "Product creation error",
-            cause: generateProductErrorInfo(req.body),
-            message: "Error al crear el producto",
-            code: ENUM_Errors.INVALID_TYPES_ERROR
-        })
+export const createProduct = async (req, res, next) => {
+    try {
+        //Se verifica que tengas los elementos requeridos:
+        if (!req.body.title || !req.body.description || !req.body.code || !req.body.price || !req.body.category || !req.body.stock) {
+            CustomError.createError({
+                name: "Product creation error",
+                cause: generateProductErrorInfo(req.body),
+                message: "Error al crear el producto",
+                code: ENUM_Errors.INVALID_TYPES_ERROR
+            })
+        }
+        const newProduct = await productsService.createProduct(req.body);
+        // const mensaje = await productManager.addProduct({title, description,code,price,status,stock,category,thumbnails});
+        if (newProduct) {
+            res.send("Objeto agregado");
+        }
+        else {
+            res.send("No se pudo agregar el objeto");
+        }
     }
-    const newProduct = await productsService.createProduct(req.body);
-    // const mensaje = await productManager.addProduct({title, description,code,price,status,stock,category,thumbnails});
-    if (newProduct) {
-        res.send("Objeto agregado");
-    }
-    else {
-        res.send("No se pudo agregar el objeto");
+    catch (error) {
+        next(error);
     }
 }
 
-export const updateProduct = async (req, res) => {
+export const updateProduct = async (req, res, next) => {
     const id = req.params.id;
     const { title, description, code, price, status, stock, category, thumbnails } = req.body;
-    const mensaje = await productsService.updateProduct(id, { title, description, code, price, status, stock, category, thumbnails });
-    res.send(mensaje);
+
+    try {
+        if (!title || !description || !code || !price || !category || !stock) {
+            CustomError.createError({
+                name: "Product update error",
+                cause: generateProductErrorInfo(req.body),
+                message: "Error al actualizar el producto",
+                code: ENUM_Errors.INVALID_TYPES_ERROR
+            })
+        }
+
+        const mensaje = await productsService.updateProduct(id, { title, description, code, price, status, stock, category, thumbnails });
+        res.send(mensaje);
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 export const deleteProduct = async (req, res) => {
@@ -91,7 +110,7 @@ export const deleteProduct = async (req, res) => {
 export const mockingProduct = async (req, res) => {
     //Genera 100 productos mocking:
     const products = [];
-    for(let i = 0; i < 100; i++){
+    for (let i = 0; i < 100; i++) {
         const product = {
             title: fakerES.commerce.productName(),
             description: fakerES.commerce.productDescription(),
