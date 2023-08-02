@@ -6,6 +6,7 @@ import cartRouter from './routes/cart.routes.js';
 import sessionRouter from './routes/session.routes.js'
 import viewsRouter from './routes/views.routes.js';
 import chatRouter from './routes/chat.routes.js';
+import loggerTestRouter from './routes/loggerTest.routes.js';
 import { engine } from 'express-handlebars';
 import * as path from 'path';
 import { __dirname } from './utils/utils.js';
@@ -15,6 +16,7 @@ import './controllers/passport.controller.js'
 import passport from 'passport';
 import './config/dbConfig.js';
 import errorHandler from './middlewares/errors/index.js'
+import { addLogger } from './middlewares/logger.middleware.js';
 
 
 //Configuración de express:
@@ -32,6 +34,7 @@ app.set('views', path.resolve(__dirname, './views'));
 //Middlewares:
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(addLogger)
 
 //sessiones:
 app.use(session({
@@ -45,7 +48,6 @@ app.use(session({
     saveUninitialized: false,
 }));
 
-app.use(addLogger);
 
 //Passport:
 app.use(passport.initialize());
@@ -57,6 +59,7 @@ app.use('/api/carts', cartRouter);
 app.use('/api/sessions', sessionRouter);
 app.use('/api/chat', chatRouter)
 app.use('/api/', viewsRouter);
+app.use('/api/loggerTest', loggerTestRouter)
 
 //Ruta public:
 app.use('/', express.static(path.resolve(__dirname, './public')));
