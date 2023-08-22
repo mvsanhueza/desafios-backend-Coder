@@ -1,0 +1,43 @@
+2023-08-01 19:52:53  error : Error message
+2023-08-01 19:52:53  fatal : Fatal message
+2023-08-01 19:53:33  error : Error message
+2023-08-01 19:53:33  fatal : Fatal message
+2023-08-01 19:53:53  error : Error message
+2023-08-01 19:53:53  fatal : Fatal message
+2023-08-01 19:56:52  error : Error message
+2023-08-01 19:56:52  fatal : Fatal message
+2023-08-01 19:57:19  error : Error message
+2023-08-01 19:57:19  fatal : Fatal message
+2023-08-01 19:58:14  error : Error message
+2023-08-01 19:58:14  fatal : Fatal message
+2023-08-01 19:58:52  error : Error message
+2023-08-01 19:58:53  fatal : Fatal message
+2023-08-01 19:59:14  error : Error message
+2023-08-01 19:59:14  fatal : Fatal message
+2023-08-01 19:59:31  error : Error message
+2023-08-01 19:59:31  fatal : Fatal message
+2023-08-01 20:00:59  error : Error message
+2023-08-01 20:00:59  fatal : Fatal message
+2023-08-01 20:02:08  error : Error message
+2023-08-01 20:02:08  fatal : Fatal message
+2023-08-01 20:02:15  error : Error message
+2023-08-01 20:02:15  fatal : Fatal message
+2023-08-14 20:55:13  error : Error al obtener los productos del carrito: ENUM_Errors is not defined
+2023-08-14 20:56:38  error : Error al actualizar contraseña del usuario: ENUM_Errors is not defined
+2023-08-14 20:57:28  error : Error al actualizar contraseña del usuario: La contraseña es igual a la anterior
+2023-08-14 20:58:19  error : Error al actualizar contraseña del usuario: La contraseña es igual a la anterior
+2023-08-14 20:59:15  error : Error al actualizar contraseña del usuario: La contraseña es igual a la anterior
+2023-08-14 20:59:21  error : Error al actualizar contraseña del usuario: La contraseña es igual a la anterior
+2023-08-14 20:59:30  error : Error al actualizar contraseña del usuario: La contraseña es igual a la anterior
+2023-08-14 20:59:57  error : Error al actualizar contraseña del usuario: La contraseña es igual a la anterior
+2023-08-14 21:00:15  error : Error al actualizar contraseña del usuario: La contraseña es igual a la anterior
+2023-08-14 21:00:22  error : Error al actualizar contraseña del usuario: usersService.updateUserPassword is not a function
+2023-08-14 21:01:23  error : Error al actualizar contraseña del usuario: La contraseña es igual a la anterior
+2023-08-14 21:01:47  error : Error al cargar productos: intPage is not defined
+2023-08-14 21:18:52  error : Error al cargar productos: intPage is not defined
+2023-08-14 21:36:37  error : Error al crear productoError al crear el producto
+2023-08-14 22:02:06  error : Usuario no encontrado en la base de datosCannot read properties of undefined (reading 'role')
+2023-08-14 22:02:36  error : Usuario no encontrado en la base de datosCannot read properties of undefined (reading 'role')
+2023-08-14 22:03:00  error : Usuario no encontrado en la base de datosCannot read properties of undefined (reading 'role')
+2023-08-14 22:03:32  error : Usuario no encontrado en la base de datosCannot read properties of undefined (reading 'role')
+2023-08-14 22:03:57  error : Usuario no encontrado en la base de datosCannot read properties of undefined (reading 'role')
