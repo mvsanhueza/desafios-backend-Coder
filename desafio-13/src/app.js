@@ -27,7 +27,13 @@ const app = express();
 const PORT = config.port || 8080;
 
 //Configuración handlebars:
-app.engine('handlebars', engine());
+app.engine('handlebars', engine({
+    helpers: {
+        first: (string) =>{
+            return string.slice(0,1);
+        }
+    }
+}));
 app.set('view engine', 'handlebars');
 app.set('views', path.resolve(__dirname, './views'));
 
