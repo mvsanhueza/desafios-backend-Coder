@@ -30,13 +30,12 @@ const storage = multer.diskStorage({
     destination: (req,file,cb) =>{
         const body = req.body;
         const docName = Object.values(body)[0];
-
         const folder = docName === 'profileImg' ? 'profile' : docName === 'product' ? 'products' : 'documents';
 
-        cb(null, __dirname + '/documents/' + docName);
+        cb(null, __dirname + '/public/documents/' + folder);
     },
     filename: (req, file, cb) =>{
-        const userId = req.params.id;
+        const userId = req.params.uid;
         cb(null, userId + '_' + file.originalname);
     }
 })

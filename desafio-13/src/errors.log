@@ -189,3 +189,18 @@
 2023-08-29 22:48:59  error : Error al agregar producto al carrito: El producto no existe en la base de datos
 2023-08-29 22:49:01  error : Error al crear productoError al crear el producto
 2023-08-29 22:49:03  error : Error al actualizar el productoError al actualizar el producto
+2023-09-10 21:10:20  error : Error en upload: ENUM_Errors is not defined
+2023-09-10 21:22:35  error : Error en upload: Cannot access 'body' before initialization
+2023-09-10 21:42:45  error : Error en upload: Error en upload documento
+2023-09-10 21:42:57  error : Error en upload: Error en upload documento
+2023-09-10 21:43:31  error : Error en upload: Error en upload documento
+2023-09-10 21:44:01  error : Error en upload: Error en upload documento
+2023-09-10 21:44:11  error : Error en upload: Error en upload documento
+2023-09-10 21:44:38  error : Error en upload: Cannot read properties of undefined (reading 'error')
+2023-09-10 22:00:37  error : Usuario no encontrado en la base de datosEl usuario no existe en la base de datos
+2023-09-10 22:03:01  error : Usuario no encontrado en la base de datosEl usuario no existe en la base de datos
+2023-09-10 22:03:24  error : Usuario no encontrado en la base de datosEl usuario no existe en la base de datos
+2023-09-10 22:04:43  error : Error en upload: Error en upload documento
+2023-09-10 22:05:04  error : Usuario no encontrado en la base de datosRequiere documentación de identifiación, domicilio y estado de cuenta para ser usuario premium
+2023-09-10 22:05:18  error : Error en upload: Error en upload documento
+2023-09-10 22:05:31  error : Error en upload: Error en upload documento

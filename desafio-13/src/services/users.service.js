@@ -58,6 +58,19 @@ class UsersService{
             return error;
         }
     }
+    
+    async uploadDocument(id, docName, file){
+        try{
+            const filePath = file.destination.split('src')[1];
+            const response = await usersMongo.uploadDocument(id, docName, filePath);
+            if(response){
+                return response
+            }
+        }
+        catch(error){
+            return {error: error}
+        }
+    }
 }
 
 const usersService = new UsersService();
